@@ -1,0 +1,29 @@
+{
+  "name": "react-calendar",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "calendar-generator": "^1.1.2",
+    "node-less-chokidar": "^0.1.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.0.17"
+  },
+  "scripts": {
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public",
+    "build-css": "node-less-chokidar src/less",
+    "watch-css": "node-less-chokidar src/less --watch"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^3.3.0",
+    "@storybook/addon-links": "^3.3.0",
+    "@storybook/react": "^3.3.0"
+  }
+}

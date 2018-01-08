@@ -27,9 +27,11 @@ const emptyDate = (count, key) =>{
 export default class Week extends Component {
     render() {
         const {date, arr} = this.props
+        console.log('Week arr:' + arr)
         const emptyHead = date[arr[0]].dayOfWeek 
         const emptyTail = 6 - date[arr[arr.length -1]].dayOfWeek
         const emptyH = emptyDate(emptyHead, arr[0]), emptyT = emptyDate(emptyTail, arr[arr.length -1])
+        console.log('Week date:' + JSON.stringify(date))
 
         return (
             <div className="row text">

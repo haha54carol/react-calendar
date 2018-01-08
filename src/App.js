@@ -4,19 +4,23 @@ import './less/main.css'
 import Header from './components/header'
 import Week from './components/week'
 
-const yearWeek = (dateArr) => {
+const yearWeek = (date, dateArr) => {
     let w = new Set()
+    let m = new Set()
     let y = new Set()
 
     for (let i = 0; i < dateArr.length; i++) {
-        if (!y.has(dateArr[i].year))
-            y.add(dateArr[i].year)
+        if (!y.has(date[dateArr[i]].year))
+            y.add(date[dateArr[i]].year)
 
-        if (!w.has(dateArr[i].week))
-            w.add(dateArr[i].week)
+        if (!m.has(date[dateArr[i]].month))
+            m.add(date[dateArr[i]].month)
+
+        if (!w.has(date[dateArr[i]].week))
+            w.add(date[dateArr[i]].week)
     }
 
-    return {w, y}
+    return {weeks: [...w], months: [...m],years: [...y]}
 
 }
 
@@ -25,33 +29,25 @@ class App extends Component {
     render() {
         const obj = genCalendarObj('2017-12-01', '2018-01-30')
         const {monthWeekDate, date} = obj
-        const tmpM = Object.keys(monthWeekDate)
 
         const dateArr = Object.keys(date)
-        const weeks = yearWeek(dateArr)
-
-        const crossYear = date[dateArr[0]].year !== date[dateArr[dateArr.length - 1]].year
-
-        const months = crossYear ? tmpM.slice(0).reverse() : tmpM
+        const {months, weeks} = yearWeek(date, dateArr)
 
         console.log('obj: ' + JSON.stringify(obj))
+        console.log('weeks: ' + JSON.stringify(weeks))
+
         return (
             <div className="container">
                 {
                     months.map(m => {
-                        const tmpWeeks = Object.keys(monthWeekDate[m])
-                        const weeks = crossYear ? tmpWeeks.slice(0) : tmpWeeks
-
-
+                        console.log('m:' + m)
                         return (
                             <div key={`month_${m}`}>
                                 <Header month={m}/>
                                 {
-
                                     weeks.map(w => (
                                         <Week date={date} key={`week_${w}`} arr={monthWeekDate[m][w]}/>
                                     ))
-
                                 }
                             </div>
                         )

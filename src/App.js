@@ -33,19 +33,19 @@ class App extends Component {
         const dateArr = Object.keys(date)
         const {months, weeks} = yearWeek(date, dateArr)
 
-        console.log('obj: ' + JSON.stringify(obj))
-        console.log('weeks: ' + JSON.stringify(weeks))
-
         return (
             <div className="container">
                 {
                     months.map(m => {
-                        console.log('m:' + m)
+
+                        const tmpWeeks = Object.keys(monthWeekDate[m])
+                        const orderedWeeks = weeks.filter(w => tmpWeeks.indexOf(w + '') !== -1)
+
                         return (
                             <div key={`month_${m}`}>
                                 <Header month={m}/>
                                 {
-                                    weeks.map(w => (
+                                    orderedWeeks.map(w => (
                                         <Week date={date} key={`week_${w}`} arr={monthWeekDate[m][w]}/>
                                     ))
                                 }
